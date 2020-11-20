@@ -2,10 +2,6 @@
 from tkinter import *
 from tkinter import ttk
 
-#create an open function list order
-#master accept that searches list for correct listbox var
-# add del previous entry function
-
 def open_consent():
     clear_view()
     global index_num
