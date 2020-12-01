@@ -164,17 +164,17 @@ def save_to_file(event=None):
     bloodLine = f'Blood Pressure - {bloodValues}. '
     heartLine = f'Heart Rate - {heartValues}. '
     anesLine = f'Anesthetic - {anesValues}. '
-    extLine = f'Extraction Type - {extValues}.\n '
-    scalpelLine = f'Made incision with {scalpelValues}'
-    flapLine = f'scalpel for {flapValues}.\n '
-    elevLine = f'{elvValues} luxated tooth with elevator. '
-    handLine = f'Used surgical handpiece to {handValues} section tooth, remove bone with copious irrigation.\n '
-    remLine = f'{remValues}. '
+    extLine = f'Extraction Type - {extValues}.'
+    scalpelLine = f'\nMade incision with {scalpelValues}'
+    flapLine = f'scalpel for {flapValues}.'
+    elevLine = f'\n{elvValues} luxated tooth with elevator. '
+    handLine = f'Used surgical handpiece to {handValues} section tooth, remove bone with copious irrigation.'
+    remLine = f'\n{remValues}. '
     irrLine = f'Irrigation - {irrValues}. '
     packLine = f'Packing - {pacValues}. '
-    sutLine = f'Sutures - {sutureValues}.\n '
-    provLine = f'Surgical procedures by {provValues} '
-    bad_chars = ['[',']']
+    sutLine = f'Sutures - {sutureValues}.'
+    provLine = f'\nSurgical procedures by {provValues}.'
+    bad_chars = ['[', ']', "'"]
 
     edr_list = [conLine,bloodLine,heartLine,anesLine,extLine,scalpelLine,flapLine,elevLine,handLine,remLine,irrLine,packLine,sutLine,provLine]
     chosen_list = []
@@ -185,10 +185,12 @@ def save_to_file(event=None):
             print('empty')
         elif values_index[counter] == ['']:
             print('empty')
+        elif values_index[counter] == [[]]:
+            print('empty')
         else:
             chosen_list.append(edr_list[counter])
         counter = counter + 1
-    # bracket filter
+    # unwanted characters filter
     newFile = open("EDR-EXT.txt", "w")
     newFile.writelines(chosen_list)
     newFile.close()
@@ -198,7 +200,6 @@ def save_to_file(event=None):
     newFile.close()
     newFile = open("EDR-EXT.txt", 'w')
     newFile.write(final_doc)
-
     newFile.close()
     print('File saved')
 
@@ -212,7 +213,7 @@ file.add_command(label='Extraction')
 menu.add_cascade(label='File',menu=file)
 
 edit = Menu(menu,tearoff=0)
-edit.add_command(label='Save',command=save_to_file)
+edit.add_command(label='Save ctrl+s',command=save_to_file)
 menu.add_cascade(label='Edit',menu=edit)
 
 viewField = LabelFrame(root,text="viewport",height=200,width=170)
@@ -303,13 +304,15 @@ def master_accept(event=None):
         selected_text_list = [menu_index[index_num].get(i) for i in menu_index[index_num].curselection()]
         values_index[index_num].append(selected_text_list)
         print(values_index[index_num])
+        #print(len(values_index[index_num]))
     else:
         single_text = menu_index[index_num].get()
         values_index[index_num].append(single_text)
         print(values_index[index_num])
-
+        #print(len(values_index[index_num]))
 
     index_num = index_num + 1
+    print(index_num)
     if index_num == len(menu_index):
         index_num = 0
     open_master(index_num)
@@ -325,7 +328,6 @@ def delete_last_entry():
 master_accept_button = Button(viewField,text='Accept',command=master_accept)
 root.bind('<Control_L>',master_accept)
 root.bind('<Control-s>',save_to_file)
-#root.bind('<<ListboxSelect>>',master_accept)
 delete_button = Button(viewField,text='Delete',command=delete_last_entry)
 
 
