@@ -1,7 +1,5 @@
 # Electronic-Dental-Record-Program
-Makes it easy to produce dental record scripts
+Makes it easy to produce dental record scripts and notes.
 
-###Extraction script###
-to-do list:
-  -Add: Clicking listbox selection causes the program to proceed to next entry
+
   
